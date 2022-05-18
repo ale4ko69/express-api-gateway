@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Simple API Gateway</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+  integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <style>
+    body { padding-top: 50px; }
+    .sample {
+        max-height: 600px;
+        overflow: auto;
+        border: 0px solid blue;
+        padding: 10px;
+        min-height: 0;
+    }
+    .hide{
+      display: none !important;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="jumbotron">
+        <form method="POST" id="login" onsubmit="return login(event)">
+            <div class="form-group">
+              <label for="exampleInputEmail1">Email address</label>
+              <input type="email" class="form-control" name="email" value="alex@test.me" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Password</label>
+              <input type="password" class="form-control" name="password" value="123456789" id="exampleInputPassword1" placeholder="Password">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+        <div id="links" style="display: none;">
+            <h3>API GATEWAY:
+
+              <button class="btn btn-primary float-right hide" id="loader" type="button" disabled>
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                <span class="sr-only">Loading...</span>
+              </button>
+            </h3>
+            <div class="row">
+                <div class="col-sm">
+                    <h5>Products</h5>
+                    <ul>
+                        <li><a href="#" onclick="getApi(event, '/products')">Get all products</a></li>
+                        <li><a href="#" onclick="getApi(event, '/products/categories')">Get all products categories</a></li>
+                        <li><a href="#" onclick="getApi(event, '/products/category/smartphones')">Products of a category 'smartphones'</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm">
+                    <h5>Users</h5>
+                    <ul>
+                        <li><a href="#" onclick="getApi(event, '/users?limit=2')">Get all users</a></li>
+                        <li><a href="#" onclick="getApi(event, '/users/1')">Get a single user by id 1</a></li>
+                        <li><a href="#" onclick="getApi(event, '/users/search?q=Terr')">Search users by 'Terr'</a></li>
+                        
+                    </ul>
+                </div>
+                <div class="col-sm">
+                    <h5>Users/Carts</h5>
+                    <ul>
+                        <li><a href="#" onclick="getApi(event, '/carts')">Get all carts</a></li>
+                        <li><a href="#" onclick="getApi(event, '/carts/1')">Get a single cart by id 1</a></li>
+                        <li><a href="#" onclick="getApi(event, '/carts/user/1')">Get carts of a user id 1</a></li>
+                        
+                    </ul>
+                </div>   
+                <div class="col-sm">
+                    <h5>Partials Union Request</h5>
+                    <ul>
+                      <li><a href="#" onclick="getUnionApi(event, '/unionrequest')">Get Partial Request User + Carts</a></li>  
+                      <li><a href="#" onclick="getApi(event, '/products?fields=products(id,title,description,images)')">Get Partial data products</a></li>
+                    </ul>
+                </div>                               
+            </div>
+
+            <pre class="sample" id="sample"></pre>
+
+
+        </div>
+    </div>
+  </div>
+<script src="/scripts.js"></script>  
+<script src="/reload/reload.js"></script>  
+</body>
+</html>
